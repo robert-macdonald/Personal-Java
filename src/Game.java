@@ -7,26 +7,26 @@ import javafx.stage.Stage;
 
 public class Game extends Application {
 
-    private static final double W = 600, H = 400;
+    private static final double width = 600, height = 400;
 
     private static final String PLAYER_IMAGE =
             "http://icons.iconarchive.com/icons/martin-berube/character/24/Policeman-icon.png";
 
     private Image playerImg;
-    private Node hero;
+    private Node player;
 
-    boolean running, goNorth, goSouth, goEast, goWest;
+    private boolean running, goNorth, goSouth, goEast, goWest;
 
     @Override
     public void start(Stage stage) throws Exception {
         playerImg = new Image(PLAYER_IMAGE);
-        hero = new ImageView(playerImg);
+        player = new ImageView(playerImg);
 
-        Group group = new Group(hero);
+        Group group = new Group(player);
 
-        moveHeroTo(W / 2, H / 2);
+        moveHeroTo(width / 2, height / 2);
 
-        Scene scene = new Scene(group, W, H, Color.rgb(66, 134, 244));
+        Scene scene = new Scene(group, width, height, Color.rgb(66, 134, 244));
 
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
@@ -94,24 +94,24 @@ public class Game extends Application {
     private void moveHeroBy(int dx, int dy) {
         if (dx == 0 && dy == 0) return;
 
-        final double cx = hero.getBoundsInLocal().getWidth() / 2;
-        final double cy = hero.getBoundsInLocal().getHeight() / 2;
+        final double cx = player.getBoundsInLocal().getWidth() / 2;
+        final double cy = player.getBoundsInLocal().getHeight() / 2;
 
-        double x = cx + hero.getLayoutX() + dx;
-        double y = cy + hero.getLayoutY() + dy;
+        double x = cx + player.getLayoutX() + dx;
+        double y = cy + player.getLayoutY() + dy;
 
         moveHeroTo(x, y);
     }
 
     private void moveHeroTo(double x, double y) {
-        final double cx = hero.getBoundsInLocal().getWidth() / 2;
-        final double cy = hero.getBoundsInLocal().getHeight() / 2;
+        final double cx = player.getBoundsInLocal().getWidth() / 2;
+        final double cy = player.getBoundsInLocal().getHeight() / 2;
 
         if (x - cx >= 0 &&
-                x + cx <= W &&
+                x + cx <= width &&
                 y - cy >= 0 &&
-                y + cy <= H) {
-            hero.relocate(x - cx, y - cy);
+                y + cy <= height) {
+            player.relocate(x - cx, y - cy);
         }
     }
 
